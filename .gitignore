@@ -1,0 +1,7 @@
+*.feature.cs
+Reports/
+bin/
+obj/
+allure-results/
+allure-report/
+.vscode/

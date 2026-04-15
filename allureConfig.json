@@ -1,0 +1,12 @@
+{
+  "allure": {
+    "directory": "..//..//..//allure-results"
+  },
+  "gherkinPatterns": {
+    "stepArguments": {
+      "createFromDataTables": true,
+      "nameColumn": "/^parameter$/i",
+      "valueColumn": "/^value$/i"
+    }
+  }
+}
