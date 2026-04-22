@@ -1,3 +1,4 @@
+using MyFirstReqnroll.Configurations.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -8,11 +9,15 @@ namespace MyFirstReqnroll.Pages
     {
         protected IWebDriver Driver;
         protected WebDriverWait Wait;
+        protected BaseUrlOptions BaseUrlOptions;
 
-        public BasePage(IWebDriver driver)
+        public string CurrentUrl => Driver.Url;
+
+        public BasePage(IWebDriver driver, BaseUrlOptions baseUrlOptions)
         {
             Driver = driver;
             Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            BaseUrlOptions = baseUrlOptions;
         }
 
         public void Navigate(string url)
@@ -38,6 +43,11 @@ namespace MyFirstReqnroll.Pages
                     return true; // Element is not present, so it's considered disappeared
                 }
             });
+        }
+
+        public IWebElement WaitAndFindElement(By locator)
+        {
+            return Wait.Until(d => d.FindElement(locator));
         }
     }
 }

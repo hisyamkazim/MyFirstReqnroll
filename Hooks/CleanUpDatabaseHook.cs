@@ -12,6 +12,7 @@ namespace MyFirstReqnroll.Hooks
             _apiService = new ApiService();
         }
 
+        [BeforeScenario("CleanUpDatabase")]
         [AfterScenario("CleanUpDatabase")]
         public async Task CleanUpSpecificScenario()
         {

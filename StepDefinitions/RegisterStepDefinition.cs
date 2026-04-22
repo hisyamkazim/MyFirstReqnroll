@@ -1,3 +1,4 @@
+using MyFirstReqnroll.Configurations.Options;
 using MyFirstReqnroll.Helpers;
 using MyFirstReqnroll.Pages;
 using OpenQA.Selenium;
@@ -11,27 +12,21 @@ namespace MyFirstReqnroll.StepDefinitions
         private readonly FakeFieldGenerator _faker;
         protected readonly IWebDriver _webDriver;
 
-        private readonly LandingPage _landingPage;
+        private readonly LoginPage _loginPage;
         private readonly RegisterPage _registerPage;
 
-        public RegisterStepDefinitions()
+        public RegisterStepDefinitions(IWebDriver webDriver, BaseUrlOptions baseUrlOptions) : base(webDriver, baseUrlOptions)
         {
             _faker = FakeFieldGenerator.CreateInstance();
             _webDriver = webDriver;
-            _landingPage = new LandingPage(_webDriver);
-            _registerPage = new RegisterPage(_webDriver);
-        }
-
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            _landingPage.Load();
+            _loginPage = new LoginPage(_webDriver, baseUrlOptions);
+            _registerPage = new RegisterPage(_webDriver, baseUrlOptions);
         }
 
         [Given(@"User choose to Register")]
         public void GivenUserChooseToRegister()
         {
-            _landingPage.ClickRegister();
+            _loginPage.ClickRegister();
         }
 
         [When(@"User fills Registration Form as follows")]

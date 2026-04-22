@@ -1,3 +1,4 @@
+using MyFirstReqnroll.Configurations.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -8,11 +9,13 @@ namespace MyFirstReqnroll.Pages
     {
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
+        private readonly BaseUrlOptions _baseUrlOptions;
 
-        public RegisterPage(IWebDriver driver) : base(driver)
+        public RegisterPage(IWebDriver driver, BaseUrlOptions baseUrlOptions) : base(driver, baseUrlOptions)
         {
             _driver = driver;
             _wait = Wait;
+            _baseUrlOptions = baseUrlOptions;
         }
 
         // ========================
@@ -51,7 +54,7 @@ namespace MyFirstReqnroll.Pages
 
         public RegisterPage Load()
         {
-            _driver.Navigate().GoToUrl("https://parabank.parasoft.com/parabank/register.htm");
+            Navigate(_baseUrlOptions.Register);
             return this;
         }
 

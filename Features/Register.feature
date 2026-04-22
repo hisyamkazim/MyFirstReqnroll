@@ -1,6 +1,9 @@
 Feature: Register
 Feature to Register Account
 
+Background:
+    Given User goes to Login page
+
 @CleanUpDatabase
 Scenario: Successful Register
 User successfully registered

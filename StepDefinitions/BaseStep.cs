@@ -1,4 +1,4 @@
-using MyFirstReqnroll.Drivers;
+using MyFirstReqnroll.Configurations.Options;
 using OpenQA.Selenium;
 using Reqnroll;
 
@@ -7,16 +7,18 @@ namespace MyFirstReqnroll.StepDefinitions
     [Binding]
     public class BaseStep : IDisposable
     {
-        protected readonly IWebDriver webDriver;
-        public BaseStep()
-        {            
-            webDriver = WebDriverFactory.CreateDriver();
+        protected IWebDriver _driver;
+        protected readonly BaseUrlOptions _baseUrlOptions;
+        public BaseStep(IWebDriver webDriver, BaseUrlOptions baseUrlOptions)
+        {
+            _baseUrlOptions = baseUrlOptions;
+            _driver = webDriver;
         }
 
         public void Dispose()
         {
-            webDriver.Quit();
-            webDriver.Dispose();
+            _driver.Quit();
+            _driver.Dispose();
         }
 
         // Common step definitions can be added here

@@ -1,18 +1,22 @@
+using MyFirstReqnroll.Configurations.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
 namespace MyFirstReqnroll.Pages
 {
-    public class LandingPage : BasePage
+    public class LoginPage : BasePage
     {
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
+        private readonly BaseUrlOptions _baseUrlOptions;
 
-        public LandingPage(IWebDriver driver) : base(driver)
+
+        public LoginPage(IWebDriver driver, BaseUrlOptions baseUrlOptions) : base(driver, baseUrlOptions)
         {
             _driver = driver;
             _wait = Wait;
+            _baseUrlOptions = baseUrlOptions;
         }
 
         // ========================
@@ -29,20 +33,20 @@ namespace MyFirstReqnroll.Pages
         // Actions (Fluent)
         // ========================
 
-        public LandingPage Load()
+        public LoginPage Load()
         {
-            _driver.Navigate().GoToUrl("https://parabank.parasoft.com/parabank/index.htm");
+            Navigate(_baseUrlOptions.Login);
             return this;
         }
 
-        public LandingPage EnterUsername(string username)
+        public LoginPage EnterUsername(string username)
         {
             UsernameInput.Clear();
             UsernameInput.SendKeys(username);
             return this;
         }
 
-        public LandingPage EnterPassword(string password)
+        public LoginPage EnterPassword(string password)
         {
             PasswordInput.Clear();
             PasswordInput.SendKeys(password);
@@ -54,7 +58,7 @@ namespace MyFirstReqnroll.Pages
             LoginButton.Click();
         }
 
-        public LandingPage LoginAs(string username, string password)
+        public LoginPage LoginAs(string username, string password)
         {
             return this
                 .EnterUsername(username)
