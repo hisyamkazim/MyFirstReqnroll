@@ -1,17 +1,19 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using DriverOptions = MyFirstReqnroll.Configurations.Options.DriverOptions;
+using BasePathOptions = MyFirstReqnroll.Configurations.Options.BasePathOptions;
 
 namespace MyFirstReqnroll.Drivers
 {
     public class BrowserDriverFactory
     {
         private readonly DriverOptions _driverOptions;
+        private readonly BasePathOptions _basePathOptions;
 
-
-        public BrowserDriverFactory(DriverOptions driverOptions)
+        public BrowserDriverFactory(DriverOptions driverOptions, BasePathOptions basePathOptions)
         {
             _driverOptions = driverOptions;
+            _basePathOptions = basePathOptions;
         }
 
         public IWebDriver GetDefaultDriver()

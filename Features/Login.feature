@@ -9,5 +9,5 @@ Then User should be logged in successfully
 And User should see welcome message "<name>"
 
 Examples:
-| username | password | name              |
+| username | password | name       |
 | john     | demo     | John Smith |

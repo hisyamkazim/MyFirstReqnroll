@@ -176,14 +176,11 @@ namespace MyFirstReqnroll.Pages
                 .EnterConfirmPassword(confirmPassword);
         }
 
-        public void SubmitRegistration(IEnumerable<RegisterData> data)
+        public void SubmitRegistration(RegisterData data)
         {
-            foreach (var row in data)
-            {
-                FillBasicInfo(row.FirstName, row.LastName, row.Address, row.City, row.State, row.ZipCode, row.Phone, row.SSN);
-                FillCredentials(row.Username, row.Password, row.ConfirmPassword);
-                ClickRegister();
-            }
+            FillBasicInfo(data.FirstName, data.LastName, data.Address, data.City, data.State, data.ZipCode, data.Phone, data.SSN);
+            FillCredentials(data.Username, data.Password, data.ConfirmPassword);
+            ClickRegister();
         }
 
         public string GetSuccessMessage()

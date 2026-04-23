@@ -18,6 +18,7 @@ namespace MyFirstReqnroll.Hooks
         private static IObjectContainer _globalContainer;
         private static DriverOptions _driverOptions;
         private static IWebDriver _webDriver;
+        private static BasePathOptions _basePathOptions;
 
         [BeforeTestRun]
         public static void GlobalSetup(IObjectContainer container)
@@ -27,8 +28,9 @@ namespace MyFirstReqnroll.Hooks
             configHook.CreateConfig();
 
             _driverOptions = _globalContainer.Resolve<DriverOptions>();
+            _basePathOptions = _globalContainer.Resolve<BasePathOptions>();
 
-            var driverFactory = new BrowserDriverFactory(_driverOptions);
+            var driverFactory = new BrowserDriverFactory(_driverOptions, _basePathOptions);
             _webDriver = driverFactory.GetDefaultDriver();
 
             if (_webDriver != null)

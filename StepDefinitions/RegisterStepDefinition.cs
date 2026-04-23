@@ -32,7 +32,7 @@ namespace MyFirstReqnroll.StepDefinitions
         [When(@"User fills Registration Form as follows")]
         public void WhenUserFillsRegistrationFormAsFollows(Table table)
         {
-            var data = _faker.FakeTable(table).CreateSet<RegisterData>();
+            var data = _faker.FakeTable(table).CreateInstance<RegisterData>();
             _registerPage.SubmitRegistration(data);
         }
 

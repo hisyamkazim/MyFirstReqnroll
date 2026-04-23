@@ -5,3 +5,7 @@ obj/
 allure-results/
 allure-report/
 .vscode/
+Data/Screenshots/
+Data/Test/
+Data/Uploads/
+Data/Downloads/

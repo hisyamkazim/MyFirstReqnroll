@@ -12,6 +12,7 @@ namespace MyFirstReqnroll.Hooks
         private static IConfiguration _config;
         private static DriverOptions _driverOptions;
         private static BaseUrlOptions _baseUrlOptions;
+        private static BasePathOptions _basePathOptions;
         
         public ConfigurationHook(IObjectContainer container)
         {
@@ -31,11 +32,14 @@ namespace MyFirstReqnroll.Hooks
                 _config.GetSection(DriverOptions.Key).Bind(_driverOptions);
                 _baseUrlOptions = new BaseUrlOptions();
                 _config.GetSection(BaseUrlOptions.Key).Bind(_baseUrlOptions);
+                _basePathOptions = new BasePathOptions();
+                _config.GetSection(BasePathOptions.Key).Bind(_basePathOptions);
             }
 
             _container.RegisterInstanceAs(_config);
             _container.RegisterInstanceAs(_driverOptions);
             _container.RegisterInstanceAs(_baseUrlOptions);
+            _container.RegisterInstanceAs(_basePathOptions);
         }
 
     }
