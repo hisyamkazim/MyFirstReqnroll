@@ -21,118 +21,120 @@ namespace MyFirstReqnroll.Pages
         // ========================
         // Locators
         // ========================
-        private IWebElement FirstName => _wait.Until(d => d.FindElement(By.Name("customer.firstName")));
-        private IWebElement LastName => _wait.Until(d => d.FindElement(By.Name("customer.lastName")));
-        private IWebElement Address => _wait.Until(d => d.FindElement(By.Name("customer.address.street")));
-        private IWebElement City => _wait.Until(d => d.FindElement(By.Name("customer.address.city")));
-        private IWebElement State => _driver.FindElement(By.Name("customer.address.state"));
-        private IWebElement ZipCode => _driver.FindElement(By.Name("customer.address.zipCode"));
-        private IWebElement Phone => _driver.FindElement(By.Name("customer.phoneNumber"));
-        private IWebElement SSN => _driver.FindElement(By.Name("customer.ssn"));
 
-        private IWebElement Username => _driver.FindElement(By.Name("customer.username"));
-        private IWebElement Password => _driver.FindElement(By.Name("customer.password"));
-        private IWebElement ConfirmPassword => _driver.FindElement(By.Name("repeatedPassword"));
+        By FirstNameLocator => By.Name("customer.firstName");
+        By LastNameLocator => By.Name("customer.lastName");
+        By AddressLocator => By.Name("customer.address.street");
+        By CityLocator => By.Name("customer.address.city");
+        By StateLocator => By.Name("customer.address.state");
+        By ZipCodeLocator => By.Name("customer.address.zipCode");
+        By PhoneLocator => By.Name("customer.phoneNumber");
+        By SSNLocator => By.Name("customer.ssn");
+        By UsernameLocator => By.Name("customer.username");
+        By PasswordLocator => By.Name("customer.password");
+        By ConfirmPasswordLocator => By.Name("repeatedPassword");
+        By RegisterButtonLocator => By.CssSelector("input[value='Register']");
+        By UsernameErrorLocator => By.Id("customer.username.errors");
+        By WelcomeTitleLocator => By.CssSelector("#rightPanel h1.title");
+        By SuccessMessageLocator => By.XPath("//p[contains(text(),'Your account was created successfully')]");
+        
+        private IWebElement FirstName => WaitAndFindElement(FirstNameLocator);
+        private IWebElement LastName => WaitAndFindElement(LastNameLocator);
+        private IWebElement Address => WaitAndFindElement(AddressLocator);
+        private IWebElement City => WaitAndFindElement(CityLocator);
+        private IWebElement State => WaitAndFindElement(StateLocator);
+        private IWebElement ZipCode => WaitAndFindElement(ZipCodeLocator);
+        private IWebElement Phone => WaitAndFindElement(PhoneLocator);
+        private IWebElement SSN => WaitAndFindElement(SSNLocator);
 
-        private IWebElement RegisterButton => _driver.FindElement(By.CssSelector("input[value='Register']"));
+        private IWebElement Username => WaitAndFindElement(UsernameLocator);
+        private IWebElement Password => WaitAndFindElement(PasswordLocator);
+        private IWebElement ConfirmPassword => WaitAndFindElement(ConfirmPasswordLocator);
+
+        private IWebElement RegisterButton => WaitAndFindElement(RegisterButtonLocator);
 
         // Error
-        private IWebElement UsernameError => _wait.Until(d => d.FindElement(By.Id("customer.username.errors")));
+        private IWebElement UsernameError => WaitAndFindElement(UsernameErrorLocator);
 
 
-        private IWebElement WelcomeTitle => _wait.Until(d =>
-    d.FindElement(By.CssSelector("#rightPanel h1.title")));
+        private IWebElement WelcomeTitle => WaitAndFindElement(WelcomeTitleLocator);
 
-        private IWebElement SuccessMessage => _wait.Until(d =>
-    d.FindElement(
-            By.XPath("//p[contains(text(),'Your account was created successfully')]")));
+        private IWebElement SuccessMessage => WaitAndFindElement(SuccessMessageLocator);
 
 
         // ========================
         // Actions (Fluent)
         // ========================
 
-        public RegisterPage Load()
+        public void Load()
         {
             Navigate(_baseUrlOptions.Register);
-            return this;
         }
 
-        public RegisterPage EnterFirstName(string value)
+        public void EnterFirstName(string value)
         {
             FirstName.Clear();
             FirstName.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterLastName(string value)
+        public void EnterLastName(string value)
         {
             LastName.Clear();
             LastName.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterAddress(string value)
+        public void EnterAddress(string value)
         {
             Address.Clear();
             Address.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterCity(string value)
+        public void EnterCity(string value)
         {
             City.Clear();
             City.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterState(string value)
+        public void EnterState(string value)
         {
             State.Clear();
             State.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterZipCode(string value)
+        public void EnterZipCode(string value)
         {
             ZipCode.Clear();
             ZipCode.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterPhone(string value)
+        public void EnterPhone(string value)
         {
             Phone.Clear();
             Phone.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterSSN(string value)
+        public void EnterSSN(string value)
         {
             SSN.Clear();
             SSN.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterUsername(string value)
+        public void EnterUsername(string value)
         {
             Username.Clear();
             Username.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterPassword(string value)
+        public void EnterPassword(string value)
         {
             Password.Clear();
             Password.SendKeys(value);
-            return this;
         }
 
-        public RegisterPage EnterConfirmPassword(string value)
+        public void EnterConfirmPassword(string value)
         {
             ConfirmPassword.Clear();
             ConfirmPassword.SendKeys(value);
-            return this;
         }
 
         public void ClickRegister()
@@ -144,7 +146,7 @@ namespace MyFirstReqnroll.Pages
         // Composite Actions
         // ========================
 
-        public RegisterPage FillBasicInfo(
+        public void FillBasicInfo(
             string firstName,
             string lastName,
             string address,
@@ -154,26 +156,26 @@ namespace MyFirstReqnroll.Pages
             string phone,
             string ssn)
         {
-            return this
-                .EnterFirstName(firstName)
-                .EnterLastName(lastName)
-                .EnterAddress(address)
-                .EnterCity(city)
-                .EnterState(state)
-                .EnterZipCode(zipCode)
-                .EnterPhone(phone)
-                .EnterSSN(ssn);
+
+                EnterFirstName(firstName);
+                EnterLastName(lastName);
+                EnterAddress(address);
+                EnterCity(city);
+                EnterState(state);
+                EnterZipCode(zipCode);
+                EnterPhone(phone);
+                EnterSSN(ssn);
         }
 
-        public RegisterPage FillCredentials(
+        public void FillCredentials(
             string username,
             string password,
             string confirmPassword)
         {
-            return this
-                .EnterUsername(username)
-                .EnterPassword(password)
-                .EnterConfirmPassword(confirmPassword);
+                
+                EnterUsername(username);
+                EnterPassword(password);
+                EnterConfirmPassword(confirmPassword);
         }
 
         public void SubmitRegistration(RegisterData data)
@@ -183,15 +185,21 @@ namespace MyFirstReqnroll.Pages
             ClickRegister();
         }
 
-        public string GetSuccessMessage()
-        {
-            return SuccessMessage.Text;
-        }
+        // ========================
+        // Response Texts
+        // ========================
+        public string GetSuccessMessage() => SuccessMessage.Text;
+        public string GetUsernameError() => UsernameError.Text;
 
+
+        // ========================
+        // Response Checks
+        // ========================
         public bool IsSuccessMessageDisplayed()
         {
             try
             {
+                WaitForElementDisplayed(SuccessMessageLocator);
                 return SuccessMessage.Displayed;
             }
             catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)
@@ -200,15 +208,11 @@ namespace MyFirstReqnroll.Pages
             }
         }
 
-        public string GetUsernameError()
-        {
-            return UsernameError.Text;
-        }
-
         public bool IsUsernameErrorDisplayed()
         {
             try
             {
+                WaitForElementDisplayed(UsernameErrorLocator);
                 return UsernameError.Displayed;
             }
             catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)

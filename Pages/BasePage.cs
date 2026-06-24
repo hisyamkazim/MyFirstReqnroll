@@ -25,7 +25,7 @@ namespace MyFirstReqnroll.Pages
             Driver.Navigate().GoToUrl(url);
         }
 
-        public void WaitForElement(By locator)
+        public void WaitForElementDisplayed(By locator)
         {
             Wait.Until(d => d.FindElement(locator).Displayed);
         }

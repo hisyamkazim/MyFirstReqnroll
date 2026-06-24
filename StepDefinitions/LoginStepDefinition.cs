@@ -12,10 +12,13 @@ namespace MyFirstReqnroll.StepDefinitions
 
         private readonly LoginPage _loginPage;
 
+        private readonly AccountOverviewPage _accountOverviewPage;
+
         public LoginStepDefinitions(IWebDriver webDriver, BaseUrlOptions baseUrlOptions) : base(webDriver, baseUrlOptions)
         {
             _webDriver = webDriver;
             _loginPage = new LoginPage(_webDriver, baseUrlOptions);
+            _accountOverviewPage = new AccountOverviewPage(_webDriver, baseUrlOptions);
         }
 
         [Given(@"User goes to Login page")]
@@ -26,31 +29,35 @@ namespace MyFirstReqnroll.StepDefinitions
 
         [When(@"User enters username ""(.*)"" and password ""(.*)""")]
         public void WhenUserEntersUsernameAndPassword(string username, string password)
-        {            _loginPage.EnterUsername(username)
-                      .EnterPassword(password)
-                      .ClickLogin();
+        {
+            _loginPage.SubmitLogin(username, password);
         }
 
         [Then(@"User should be logged in successfully")]
         public void ThenUserShouldBeLoggedInSuccessfully()
         {
-            _loginPage.WaitAndFindElement(By.ClassName("title"));       
-            Assert.IsTrue(_loginPage.CurrentUrl.Contains(_baseUrlOptions.AccountOverview), "Expected to be on account overview page after login.");
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(_loginPage.CurrentUrl.Contains(_baseUrlOptions.AccountOverview), "Expected to be on account overview page after login.");
+                Assert.IsTrue(_accountOverviewPage.IsLogoutLinkDisplayed(), "Expected logout link not found.");
+            });
         }
 
-        [Then(@"User should see welcome message ""(.*)""")]
-        public void ThenUserShouldSeeWelcomeMessage(string name)
+        [Then(@"User should see welcome message")]
+        public void ThenUserShouldSeeWelcomeMessage()
         {
-            string welcomeMessage = _loginPage.WaitAndFindElement(By.XPath("//*[@id='leftPanel']/p")).Text;
-            Assert.That(welcomeMessage, Does.Contain(name));
+            Assert.IsTrue(_accountOverviewPage.IsWelcomeMessageDisplayed(), "Expected welcome message not found.");
         }
 
         [Then(@"User should see error message ""(.*)""")]
         public void ThenUserShouldSeeErrorMessage(string message)
         {
-            Assert.IsTrue(_webDriver.FindElement(By.Id("errorMessage")).Displayed, "Error message not displayed, expected an error.");
-            string errorMessage = _webDriver.FindElement(By.Id("errorMessage")).Text;
-            Assert.That(errorMessage, Does.Contain(message));
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(_loginPage.IsErrorMessageDisplayed(), "Error message not displayed, expected an error.");
+                string errorMessage = _loginPage.GetErrorMessage();
+                Assert.That(errorMessage, Does.Contain(message));
+            });
         }
     }
 }

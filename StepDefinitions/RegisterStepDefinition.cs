@@ -39,17 +39,23 @@ namespace MyFirstReqnroll.StepDefinitions
         [Then(@"User should get success message ""(.*)""")]
         public void ThenUserShouldGetSuccessMessage(string message)
         {
-            Assert.IsTrue(_registerPage.IsSuccessMessageDisplayed(), "Expected success message not found.");
-            string successMessage = _registerPage.GetSuccessMessage();
-            Assert.That(successMessage, Does.Contain(message));
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(_registerPage.IsSuccessMessageDisplayed(), "Expected success message not found.");
+                string successMessage = _registerPage.GetSuccessMessage();
+                Assert.That(successMessage, Does.Contain(message));
+            });
         }
 
         [Then(@"User should get error message ""(.*)""")]
         public void ThenUserShouldGetErrorMessage(string message)
         {
-            Assert.IsTrue(_registerPage.IsUsernameErrorDisplayed(), "Expected username error message not found.");
-            string errorMessage = _registerPage.GetUsernameError();
-            Assert.That(errorMessage, Does.Contain(message));
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(_registerPage.IsUsernameErrorDisplayed(), "Expected username error message not found.");
+                string errorMessage = _registerPage.GetUsernameError();
+                Assert.That(errorMessage, Does.Contain(message));
+            });
         }
 
     }

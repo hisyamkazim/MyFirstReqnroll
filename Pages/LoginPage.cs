@@ -22,35 +22,40 @@ namespace MyFirstReqnroll.Pages
         // ========================
         // Locators
         // ========================
-        private IWebElement UsernameInput => _wait.Until(d => d.FindElement(By.Name("username")));
-        private IWebElement PasswordInput => _driver.FindElement(By.Name("password"));
-        private IWebElement LoginButton => _driver.FindElement(By.CssSelector("input[value='Log In']"));
+        By UsernameLocator => By.Name("username");
+        By PasswordLocator => By.Name("password");
+        By LoginButtonLocator => By.CssSelector("input[value='Log In']");
+        By RegisterLinkLocator => By.LinkText("Register");
+        By ForgotLoginInfoLinkLocator => By.LinkText("Forgot login info?");
+        By ErrorMessageLocator => By.Id("errorMessage");
 
-        private IWebElement RegisterLink => _driver.FindElement(By.LinkText("Register"));
-        private IWebElement ForgotLoginInfoLink => _driver.FindElement(By.LinkText("Forgot login info?"));
+        private IWebElement UsernameInput => WaitAndFindElement(UsernameLocator);
+        private IWebElement PasswordInput => WaitAndFindElement(PasswordLocator);
+        private IWebElement LoginButton => WaitAndFindElement(LoginButtonLocator);
+
+        private IWebElement RegisterLink => WaitAndFindElement(RegisterLinkLocator);
+        private IWebElement ForgotLoginInfoLink => WaitAndFindElement(ForgotLoginInfoLinkLocator);
+        private IWebElement ErrorMessage => WaitAndFindElement(ErrorMessageLocator);
 
         // ========================
         // Actions (Fluent)
         // ========================
 
-        public LoginPage Load()
+        public void Load()
         {
             Navigate(_baseUrlOptions.Login);
-            return this;
         }
 
-        public LoginPage EnterUsername(string username)
+        public void EnterUsername(string username)
         {
             UsernameInput.Clear();
             UsernameInput.SendKeys(username);
-            return this;
         }
 
-        public LoginPage EnterPassword(string password)
+        public void EnterPassword(string password)
         {
             PasswordInput.Clear();
             PasswordInput.SendKeys(password);
-            return this;
         }
 
         public void ClickLogin()
@@ -58,16 +63,10 @@ namespace MyFirstReqnroll.Pages
             LoginButton.Click();
         }
 
-        public LoginPage LoginAs(string username, string password)
-        {
-            return this
-                .EnterUsername(username)
-                .EnterPassword(password);
-        }
-
         public void SubmitLogin(string username, string password)
         {
-            LoginAs(username, password);
+            EnterUsername(username);
+            EnterPassword(password);
             ClickLogin();
         }
 
@@ -79,6 +78,24 @@ namespace MyFirstReqnroll.Pages
         public void ClickForgotLoginInfo()
         {
             ForgotLoginInfoLink.Click();
+        }
+
+        public bool IsErrorMessageDisplayed()
+        {
+            try
+            {
+                WaitForElementDisplayed(ErrorMessageLocator);
+                return ErrorMessage.Displayed;
+            }
+            catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        public string GetErrorMessage()
+        {
+            return ErrorMessage.Text;
         }
     }
 }
