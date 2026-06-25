@@ -3,7 +3,7 @@ using MyFirstReqnroll.Pages;
 using OpenQA.Selenium;
 using Reqnroll;
 
-namespace MyFirstReqnroll.StepDefinitions
+namespace MyFirstReqnroll.Steps
 {
     [Binding]
     public class LoginStepDefinitions : BaseStep
@@ -27,7 +27,7 @@ namespace MyFirstReqnroll.StepDefinitions
             _loginPage.Load();
         }
 
-        [When(@"User enters username ""(.*)"" and password ""(.*)""")]
+        [When(@"User enters username {string} and password {string}")]
         public void WhenUserEntersUsernameAndPassword(string username, string password)
         {
             _loginPage.SubmitLogin(username, password);
@@ -49,7 +49,7 @@ namespace MyFirstReqnroll.StepDefinitions
             Assert.IsTrue(_accountOverviewPage.IsWelcomeMessageDisplayed(), "Expected welcome message not found.");
         }
 
-        [Then(@"User should see error message ""(.*)""")]
+        [Then(@"User should see error message {string}")]
         public void ThenUserShouldSeeErrorMessage(string message)
         {
             Assert.Multiple(() =>

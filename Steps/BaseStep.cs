@@ -2,7 +2,7 @@ using MyFirstReqnroll.Configurations.Options;
 using OpenQA.Selenium;
 using Reqnroll;
 
-namespace MyFirstReqnroll.StepDefinitions
+namespace MyFirstReqnroll.Steps
 {
     [Binding]
     public class BaseStep : IDisposable

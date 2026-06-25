@@ -4,7 +4,7 @@ using MyFirstReqnroll.Pages;
 using OpenQA.Selenium;
 using Reqnroll;
 
-namespace MyFirstReqnroll.StepDefinitions
+namespace MyFirstReqnroll.Steps
 {
     [Binding]
     public class RegisterStepDefinitions : BaseStep
