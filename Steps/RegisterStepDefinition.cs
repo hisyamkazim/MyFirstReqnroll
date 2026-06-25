@@ -36,7 +36,7 @@ namespace MyFirstReqnroll.Steps
             _registerPage.SubmitRegistration(data);
         }
 
-        [Then(@"User should get success message ""(.*)""")]
+        [Then(@"User should get success message {string}")]
         public void ThenUserShouldGetSuccessMessage(string message)
         {
             Assert.Multiple(() =>
@@ -47,7 +47,7 @@ namespace MyFirstReqnroll.Steps
             });
         }
 
-        [Then(@"User should get error message ""(.*)""")]
+        [Then(@"User should get error message {string}")]
         public void ThenUserShouldGetErrorMessage(string message)
         {
             Assert.Multiple(() =>
